@@ -58,6 +58,23 @@ confirms the bot is hitting Shopify's storefront API directly, not browsing the 
 5. Medium-term: add SMS/OTP verification specifically on COD orders — the
    durable fix, since a script can't receive real OTP codes at scale.
 
+## Vendor response (Blockify support)
+
+Contacted Blockify support with the confirmed pattern (COD-based, 0 orders flagged
+high-risk in 7 days despite active flood, no email / "Local Delivery" / clustered
+phone range, `/cart/add.js` direct-hit landing page) and confirmation that Proxy/VPN
+blocker, Tor blocker, and Auto-block visitors were already turned on.
+
+Support replied: existing setup is fine; they additionally enabled **"Stop bots
+from creating fake checkout"** — blocks bots that reuse a checkout link/session to
+place multiple invalid orders instead of starting a fresh session each time. Fits
+the observed pattern of a script hitting `/cart/add.js` directly.
+
+**Verification plan:** watch order count for 30-60 min to confirm it stops climbing
+at the earlier rate; spot-check any new orders against the confirmed pattern. If
+still leaking, escalate to requiring email at checkout + SMS/OTP verification on
+COD orders (still not yet implemented as of this entry).
+
 ## Tie-in to analytics/ads priorities
 
 If the `purchase` GTM tag fires on order creation (thank-you page) regardless of
