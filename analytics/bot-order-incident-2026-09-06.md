@@ -75,6 +75,11 @@ at the earlier rate; spot-check any new orders against the confirmed pattern. If
 still leaking, escalate to requiring email at checkout + SMS/OTP verification on
 COD orders (still not yet implemented as of this entry).
 
+**Status: RESOLVED (confirmed by store owner Sept 7, 2026).** Flood stopped after
+Blockify's "Stop bots from creating fake checkouts" (Early access) was enabled.
+Requiring email at checkout + OTP verification remain optional hardening, not
+urgent. Incident closed; work resumed on the GTM/GA4 audit.
+
 ## Tie-in to analytics/ads priorities
 
 If the `purchase` GTM tag fires on order creation (thank-you page) regardless of
