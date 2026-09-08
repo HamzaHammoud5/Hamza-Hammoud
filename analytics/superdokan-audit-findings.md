@@ -89,6 +89,30 @@ Confirmed via Shopify's "Google & YouTube" app and Google Ads Data Manager:
 
 **Scope narrowed to:** `G-TZ3E2XBX7C` (GA4) and `AW-439391114` (Google Ads) only.
 
+## Google Ads conversion goals audit (Sept 8, 2026)
+
+Pulled full conversion action list (52 total actions) via "View all conversion
+actions." Core e-commerce funnel status:
+
+- **Add to cart:** Healthy — primary action `www.superdokan.com - GA4 (web)
+  add_to_cart` Active. No change needed.
+- **Purchase:** 2 primary actions by design (one web, one app) — web side
+  (`Google Shopping App Purchase (1)`) is Active/healthy; app side (Android
+  Firebase purchase) shows Needs attention, pending the Firebase re-link work.
+- **Begin checkout:** Was Misconfigured — goal scoped "mobile app only" with
+  zero primary actions (all 5 candidate actions were Secondary). **FIXED**:
+  promoted `www.superdokan.com - GA4 (web) begin_checkout` (Website/GA4,
+  already Active) to Primary. Goal now shows 1 primary action, Active.
+- **Everything else** (Sign-up, Downloads, Phone call leads, Local actions,
+  duplicate "Google Shopping App Page View/View Item/Search" pairs with and
+  without "(1)" suffix, ~45 mostly-Secondary/legacy actions) — parked as a
+  lower-priority cleanup for later. Not affecting bidding since only Primary
+  actions drive bid optimization.
+
+**Next phase:** Firebase re-link for the new mobile app provider, then
+re-verify/rebuild the app-side Google Ads, GA4, and GTM integrations, then
+Meta Pixel/CAPI + App Events SDK.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
