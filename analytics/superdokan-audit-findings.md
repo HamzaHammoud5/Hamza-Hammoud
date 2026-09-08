@@ -178,6 +178,35 @@ tracking, Meta App Events) are all confirmed working with no fixes needed.**
 Remaining open work: audit the website's actual Meta Pixel/CAPI (`SD 042025`),
 and optionally clean up the dead/duplicate Meta datasets.
 
+## Meta dataset cleanup investigation (Sept 8, 2026) — no action needed
+
+Investigated the datasets flagged as possibly duplicate/dead. Corrected
+initial assumption:
+
+- **`SuperDokan Login` (1053177422614776) is NOT a duplicate to clean up.**
+  Settings tab confirms Owner: "SuperDokan" (Business ID 134268884902465),
+  created Jan 12, 2024, correctly linked to app `3693965007507830`.
+  Confirmed actively used: Meta Ads Manager shows it wired into a live
+  "Retargeting all genders by numbers" campaign's offline event sources
+  (alongside `SD 042025`), both marked AUTO. This is the real, correct app
+  dataset — leave as-is.
+- `3693965007507830` (inaccessible to view/manage directly) and
+  `930753098039391` (same, under the "SuperDokan App" pair) are
+  auto-generated technical objects Meta creates per Facebook App — not
+  separately manageable, not something to worry about.
+- `SuperDokan App` (774400187716486) — low-volume, technical SDK lifecycle
+  events only (ActivateApp, fb_mobile_deactivate_app, fb_sdk_initialize,
+  deferred deep link) — not capturing e-commerce events, not duplicating
+  real conversion data. Harmless, safe to leave alone.
+- `Píxel de SuperDokan` (202486964508324) — confirmed genuinely dead: 0
+  events, no integrations. Has 1 connected product catalog attached (worth
+  checking that's not reused elsewhere before deleting). Safe to remove,
+  low priority.
+
+**Conclusion: no real double-counting or cleanup risk found on the Meta
+side.** Same outcome as the Firebase/GA4/Ads investigation — everything
+turns out more intact than the initial dataset list suggested.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
