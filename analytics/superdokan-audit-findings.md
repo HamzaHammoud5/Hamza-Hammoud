@@ -113,6 +113,39 @@ actions." Core e-commerce funnel status:
 re-verify/rebuild the app-side Google Ads, GA4, and GTM integrations, then
 Meta Pixel/CAPI + App Events SDK.
 
+## App provider switch: Vajro → Appbrew (Sept 8, 2026)
+
+Investigated whether switching mobile app providers broke Firebase/GA4/Ads
+app tracking. **Conclusion: nothing broke.**
+
+- Appbrew's App Info (App Settings) shows package name `co.tapcart.app.id_8Ory8Z6Ala`
+  (Android), bundle ID `com.tapcart.8Ory8Z6Ala` (iOS), matching SHA-1 hash and
+  Team ID — all **identical** to what's registered in the Firebase project
+  `superdokan-8e044`. Appbrew preserved the app's identity from whatever prior
+  builder ("tapcart" naming is historical/white-label, not a currently-relevant
+  vendor) — the right move, since changing package name would break existing
+  installs.
+- Firebase Analytics confirmed receiving live data: 472 active users in the
+  last 30 min at check time, 313K/30 days, top country Lebanon (matches real
+  customer base).
+- Same GA4 property (`G-TZ3E2XBX7C`, `www.superdokan.com - GA4`) receives BOTH
+  web and app data — correct unified setup.
+- E-commerce events confirmed flowing with real volume (Sep 1-8, 2026):
+  `add_to_cart` 33K, `begin_checkout` 11K, `view_item_list` 473K, `view_item`
+  364K, `add_to_wishlist` 3.2K. **Purchase revenue: $117K** confirmed, proving
+  `purchase` events are firing and valued correctly.
+- Appbrew has **no native Google Analytics/Google Ads integration tile** —
+  only Facebook Ads, Firebase Messaging (push-cert focused), and third-party
+  apps (reviews/loyalty/etc). Not needed here since Firebase SDK handles the
+  GA4 pipe directly regardless of app-builder UI.
+- Earlier "Needs attention" flags on some Google Ads app conversion actions
+  (e.g. Android purchase) likely reflect a quality/settings note, not zero
+  data — that action already shows real historical results ($589/$19,083).
+
+**No re-link action needed.** Firebase/GA4/Ads app tracking was already
+intact through the provider switch. Appbrew's Facebook Ads integration IS
+native — next phase (Meta) should be straightforward by comparison.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
