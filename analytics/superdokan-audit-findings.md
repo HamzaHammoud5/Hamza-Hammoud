@@ -79,9 +79,13 @@ Confirmed via Shopify's "Google & YouTube" app and Google Ads Data Manager:
   unlabeled Google Ads conversion ID (`AW-386572153`, "Untitled tag") tied to this
   Google account. **Decision: out of scope for now** — likely legacy debris from
   past setup attempts. Revisit only if something surfaces tying them to live data.
-- `AW-439391114`'s tag diagnostics show "Needs Attention: some pages not tagged" —
-  expected, likely just the checkout page (which GTM structurally cannot reach).
-  Confirm via "See untagged pages" that it's limited to checkout/order pages only.
+- `AW-439391114`'s tag diagnostics show "Needs Attention: some pages not tagged"
+  (482 of 10,000). Investigated: one URL was the expected
+  `account.superdokan.com/authentication/...` (Shopify-hosted, GTM can't reach it,
+  not fixable). The rest were `/ar-lb/` (Arabic-locale) product URLs — spot-checked
+  2 of them and both returned **404 Not Found**. **Conclusion: false alarm** — this
+  is stale crawl data referencing discontinued products, not a live Arabic-locale
+  tracking gap. No action needed.
 
 **Scope narrowed to:** `G-TZ3E2XBX7C` (GA4) and `AW-439391114` (Google Ads) only.
 
