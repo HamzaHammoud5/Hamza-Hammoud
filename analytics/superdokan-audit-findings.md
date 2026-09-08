@@ -61,6 +61,30 @@ Updated as we go through the live audit conversation.
 6. `pixel - CLP5C5JC77UEPOBAVJH0` — ID format matches a **TikTok Pixel**, not Meta.
    Confirms TikTok tracking is at least partially wired up already.
 
+## Google Ads / GA4 account audit (Sept 8, 2026)
+
+Confirmed via Shopify's "Google & YouTube" app and Google Ads Data Manager:
+
+- Connected Google Ads account: **`116-387-1248` ("SuperDokan New")** — Conversion
+  measurement and Customer Match both On. This account's own Google tag is
+  **`AW-439391114`** — same ID already used in GTM's tags. Not a stale/old account;
+  it's the current one.
+- Shopify's native app fires its own tag (`GT-55V7RNCJ`) directly on-page
+  (outside GTM), confirmed firing `Purchase` on the checkout page in testing.
+  Risk: this account may receive purchase conversions from BOTH the native
+  Shopify tag and GTM's tags — potential double-counting within one account,
+  not across two accounts as first suspected.
+- Also found via Tag Manager's account-level "Google tags" list: 3 other unrelated
+  GA4 properties (`G-XB2ZKESQJS`, `G-SLWNDEZWPE`, `G-N7PM5SZP4X`) and a second,
+  unlabeled Google Ads conversion ID (`AW-386572153`, "Untitled tag") tied to this
+  Google account. **Decision: out of scope for now** — likely legacy debris from
+  past setup attempts. Revisit only if something surfaces tying them to live data.
+- `AW-439391114`'s tag diagnostics show "Needs Attention: some pages not tagged" —
+  expected, likely just the checkout page (which GTM structurally cannot reach).
+  Confirm via "See untagged pages" that it's limited to checkout/order pages only.
+
+**Scope narrowed to:** `G-TZ3E2XBX7C` (GA4) and `AW-439391114` (Google Ads) only.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
