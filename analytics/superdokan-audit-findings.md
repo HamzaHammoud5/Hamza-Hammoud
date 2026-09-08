@@ -146,6 +146,38 @@ app tracking. **Conclusion: nothing broke.**
 intact through the provider switch. Appbrew's Facebook Ads integration IS
 native — next phase (Meta) should be straightforward by comparison.
 
+## Meta App Events audit (Sept 8, 2026)
+
+Appbrew's "Facebook Ads" integration had real values filled in (App ID
+`3693965007507830`, Client Token, Content Id Format `{{VARIANT}}`). Verified
+in Meta Events Manager:
+
+- App ID `3693965007507830` = dataset **"SuperDokan Login"** (misleading
+  name) — confirmed **Active**, last event 20 min ago. Full funnel
+  instrumented with real volume (Aug 11 - Sep 7): View content 1.9M,
+  Activate app 189.5K, Search 82K, Add to cart 75.6K, Initiate checkout
+  12.6K, Add to wishlist 7.8K, **Purchase 3.2K**. App-side Meta tracking is
+  genuinely working — no action needed.
+- Note for later: **iOS 14.5 ATE True Status Rate shows "No Rate
+  Displayed"** — related to Apple App Tracking Transparency opt-in
+  reporting. Not urgent, worth investigating separately.
+- **Duplicate/stale datasets found** (not the one Appbrew uses, safe to
+  leave or clean up later): second "SuperDokan Login" (`1053177422614776`),
+  two "SuperDokan App" datasets (`774400187716486`, `930753098039391`, both
+  ~51-few events), and "Píxel de SuperDokan" (`202486964508324`, 0 events,
+  no integrations — fully dead).
+- **"SD 042025"** dataset (`1654051705242619`, 6.4M events, Conversions API
+  + 1 more integration) is almost certainly the **website's** Meta
+  Pixel/CAPI setup — this is the original "Meta Pixel & Conversions API"
+  item from the initial priority list (GA4, Google Ads, Meta Pixel) and has
+  **not yet been audited**. Everything in this session so far covered GA4,
+  Google Ads, and the app side only.
+
+**Status: app-side integration phases (Firebase, GA4, Google Ads app
+tracking, Meta App Events) are all confirmed working with no fixes needed.**
+Remaining open work: audit the website's actual Meta Pixel/CAPI (`SD 042025`),
+and optionally clean up the dead/duplicate Meta datasets.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
