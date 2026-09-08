@@ -207,6 +207,56 @@ initial assumption:
 side.** Same outcome as the Firebase/GA4/Ads investigation — everything
 turns out more intact than the initial dataset list suggested.
 
+## Website Meta Pixel/CAPI audit — SD 042025 (Sept 8, 2026)
+
+Original priority-3 item (GA4, Google Ads, Meta Pixel), audited last.
+**Result: healthy, no fixes needed.**
+
+Full funnel tracked, all Active, "Multiple" integration confirms both
+browser Pixel + server-side Conversions API firing together (correct setup,
+Meta deduplicates automatically — not a duplicate-firing bug):
+
+| Event | Volume (28d) | Ad sets | EMQ |
+|---|---|---|---|
+| PageView | 3.4M | - | 6.3/10 |
+| View content | 2.4M | - | 6.1/10 |
+| Search | 25.5K | - | 6.3/10 |
+| Add to cart | 110K | 9 | 6.5/10 |
+| Initiate checkout | 50.2K | 8 | 7.5/10 |
+| Add payment info | 13K | 8 | 8.2/10 |
+| Purchase | 12.8K | 24 | 8.7/10 |
+
+No errors in Diagnostics. Event Match Quality scores are moderate (6-7/10)
+on upper-funnel events but strong on Purchase (8.7/10) — not broken, but an
+optimization opportunity: passing more hashed customer data (email/phone)
+earlier in the funnel would improve EMQ and ad targeting efficiency. Not
+urgent.
+
+## Session summary (Sept 5-8, 2026)
+
+All originally scoped priorities (GA4, Google Ads, Meta Pixel) plus the
+mobile app provider switch (Vajro → Appbrew) have been audited. Outcomes:
+
+- **Bot/fake COD order fraud incident**: Resolved (Blockify checkout-link
+  reuse blocker).
+- **GTM**: `purchase` tag duplicate-trigger bug fixed (now fires once via
+  `checkout_completed` only).
+- **Google Ads**: `Begin checkout` goal misconfiguration fixed. Purchase/Add
+  to cart confirmed healthy. ~45 legacy/secondary conversion actions parked
+  as low-priority cleanup, not affecting bidding.
+- **App relink (Firebase/GA4/Ads/Meta)**: Confirmed nothing broke in the
+  provider switch — package identity preserved, all data flowing correctly.
+  No fixes were actually needed.
+- **Meta datasets**: Investigated apparent duplicates — turned out to be
+  correctly-owned, actively-used assets. No cleanup needed.
+- **Website Meta Pixel/CAPI**: Confirmed healthy, full funnel tracked, no
+  errors. EMQ improvement is the one open optimization item.
+
+**Remaining low-priority items for later:** clean up ~45 secondary/legacy
+Google Ads conversion actions; delete dead `Píxel de SuperDokan` Meta
+dataset; investigate iOS 14.5 ATE Status Rate; improve Meta EMQ scores via
+better Advanced Matching/CAPI customer data.
+
 ## Next steps (in progress)
 
 - [ ] Open `Google Analytics 4` tag: confirm Measurement ID + inspect the
