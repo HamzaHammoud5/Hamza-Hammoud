@@ -253,9 +253,34 @@ mobile app provider switch (Vajro → Appbrew) have been audited. Outcomes:
   errors. EMQ improvement is the one open optimization item.
 
 **Remaining low-priority items for later:** clean up ~45 secondary/legacy
-Google Ads conversion actions; delete dead `Píxel de SuperDokan` Meta
-dataset; investigate iOS 14.5 ATE Status Rate; improve Meta EMQ scores via
-better Advanced Matching/CAPI customer data.
+Google Ads conversion actions; improve Meta EMQ scores via better Advanced
+Matching/CAPI customer data.
+
+## Meta/Google Ads final cleanup pass (Sept 8, 2026)
+
+- **`Píxel de SuperDokan` deletion — deferred.** Confirmed it has a connected
+  product catalog attached. Decision: leave it for the owner to clean up
+  themselves rather than risk an active catalog link. No action taken.
+- **Root cause found for Google Ads Purchase "Needs attention" (Android):**
+  Diagnostics show **100% of sold item IDs from the Android app can't be
+  matched to Google Merchant Center** — because Merchant Center's product
+  feed was never activated (confirmed "Inactive" status found earlier in
+  the Google & YouTube app audit). Same root cause, now with concrete
+  evidence it degrades Purchase conversion data quality, not just Shopping-
+  campaign eligibility as originally scoped.
+  - **Fix requires:** completing Merchant Center setup (product feed
+    activation, business/tax/shipping info, Google review) — bigger than a
+    settings toggle, needs the account owner's business details.
+  - **Decision: deferred to the owner** to create/complete the Merchant
+    Center account; can be linked/finished afterward.
+- iOS 14.5 ATT status rate: support message sent to Appbrew asking whether
+  the app implements Apple's App Tracking Transparency prompt and passes
+  `AdvertiserTrackingEnabled` correctly. Awaiting reply.
+
+**Session closed out here.** Remaining open items, all low-priority/deferred
+to the owner or pending vendor response: Merchant Center activation, ~45
+legacy Google Ads conversion actions, Meta EMQ improvement, Appbrew's ATT
+support reply, and the dead Meta pixel (has a catalog attached).
 
 ## Next steps (in progress)
 
